@@ -110,10 +110,8 @@ function showPicker() {
     `;
     btn.addEventListener("click", () => {
       Audio.click();
-      startPuzzle(pic);
-    });
-    btn.addEventListener("mouseenter", () => {
       Speech.say(pic.title);
+      startPuzzle(pic);
     });
     grid.appendChild(btn);
   });

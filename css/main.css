@@ -29,6 +29,7 @@ html {
 html,
 body {
   height: 100%;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -38,6 +39,8 @@ body {
   background: #1a3a2a;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 button {
@@ -49,8 +52,9 @@ button {
 
 #app {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -527,10 +531,6 @@ button {
 }
 
 @media (max-width: 900px) {
-  html {
-    font-size: 24px;
-  }
-
   .avatar-wrap {
     width: 64px;
     height: 64px;

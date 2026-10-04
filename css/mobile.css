@@ -1,0 +1,643 @@
+/* Mobile / touch adaptations */
+
+html {
+  font-size: clamp(17px, 1.35vw + 12px, 32px);
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+button,
+.location,
+.game-spot,
+.puzzle-picker__card {
+  touch-action: manipulation;
+}
+
+/* Keep hold gesture for parents lock */
+.btn-parents {
+  touch-action: none;
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 900px) {
+  .top-bar {
+    gap: 10px;
+    padding: 6px 12px;
+  }
+
+  .brand__title {
+    font-size: 1.05rem;
+  }
+
+  .brand__emoji {
+    font-size: 1.4rem;
+  }
+
+  .progress-card {
+    padding: 3px 10px 3px 3px;
+    gap: 8px;
+  }
+
+  .guide {
+    bottom: 12px;
+    padding: 10px 14px;
+    gap: 10px;
+    max-width: min(560px, 94vw);
+  }
+
+  .guide__face {
+    font-size: 1.6rem;
+  }
+
+  .guide__text {
+    font-size: 0.85rem;
+  }
+
+  .modal-card,
+  .success-card {
+    padding: 24px 18px;
+    border-radius: 28px;
+    max-height: 90dvh;
+    overflow: auto;
+  }
+
+  .modal-card h2,
+  .success-title {
+    font-size: 1.35rem;
+  }
+
+  .success-star {
+    font-size: 3.5rem;
+  }
+
+  .btn-back {
+    font-size: 0.85rem;
+    padding: 8px 14px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 700px) {
+  .top-bar {
+    flex-wrap: wrap;
+    row-gap: 6px;
+    padding: 8px 10px;
+    padding-top: max(8px, env(safe-area-inset-top));
+  }
+
+  .brand {
+    order: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .brand__title {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .progress-card {
+    order: 3;
+    flex: 1 1 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+
+  #btn-settings,
+  #btn-parents {
+    order: 2;
+  }
+
+  .avatar-wrap {
+    width: 48px;
+    height: 48px;
+  }
+
+  .stars-row {
+    font-size: 0.85rem;
+  }
+
+  .progress-card__count {
+    font-size: 0.75rem;
+  }
+
+  .btn-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+
+  .progress-mini {
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    gap: 8px;
+  }
+
+  .avatar--sm {
+    width: 36px;
+    height: 36px;
+  }
+
+  .forest-title {
+    font-size: 1.15rem;
+  }
+
+  .forest-title h2 {
+    font-size: 1.15rem;
+  }
+
+  /* Island: scrollable list instead of overlapping pins */
+  .island-map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 14px 110px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .island-bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .island-land {
+    width: 92%;
+    height: 42%;
+    left: 4%;
+    bottom: 18%;
+    opacity: 0.85;
+  }
+
+  .location {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: min(320px, 100%);
+    min-width: 0;
+    padding: 14px 16px;
+    border-radius: 22px;
+  }
+
+  .location:hover:not(:disabled),
+  .location:active:not(:disabled) {
+    transform: scale(1.03);
+  }
+
+  .location__icon {
+    font-size: 2.2rem;
+  }
+
+  .location__lock {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    top: -8px;
+    right: -8px;
+  }
+
+  .guide {
+    position: sticky;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    left: auto;
+    transform: none;
+    width: min(420px, 100%);
+    margin-top: auto;
+    animation: none;
+    z-index: 20;
+  }
+
+  /* Forest: 2-column grid of games */
+  .forest-map {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    align-content: start;
+    padding: 12px 12px 16px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .forest-bg {
+    display: none;
+  }
+
+  .game-spot {
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    min-height: 92px;
+    padding: 12px 8px;
+    border-radius: 18px;
+    gap: 4px;
+  }
+
+  .game-spot:hover:not(:disabled),
+  .game-spot:active:not(:disabled) {
+    transform: scale(1.03);
+  }
+
+  .game-spot__icon {
+    font-size: 1.6rem;
+  }
+
+  .game-spot__name {
+    font-size: 0.7rem;
+  }
+
+  .game-spot__star {
+    font-size: 0.85rem;
+  }
+
+  .guide--forest {
+    position: sticky;
+    bottom: max(8px, env(safe-area-inset-bottom));
+    left: auto;
+    transform: none;
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: none;
+    margin: 4px 0 0;
+    animation: none;
+    order: 99;
+  }
+
+  /* Game screen */
+  .game-prompt {
+    margin: 8px 10px 0;
+    padding: 10px 12px;
+    gap: 10px;
+    border-radius: 20px;
+  }
+
+  .game-prompt__face {
+    font-size: 1.6rem;
+  }
+
+  .game-prompt__text {
+    font-size: 0.85rem;
+  }
+
+  .game-area {
+    padding: 10px 10px 16px;
+    gap: 14px;
+    align-content: flex-start;
+  }
+
+  .game-layout--puzzle .game-prompt {
+    margin: 6px 8px 0;
+    padding: 6px 10px;
+  }
+
+  .game-layout--puzzle .game-prompt__text {
+    font-size: 0.65rem;
+  }
+
+  .game-layout--puzzle .game-area {
+    padding: 6px 8px 10px;
+  }
+
+  /* Counting */
+  .counting-basket {
+    top: 8px;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    z-index: 6;
+  }
+
+  .counting-basket__icon {
+    font-size: 2rem;
+  }
+
+  .counting-basket__count {
+    font-size: 1rem;
+    padding: 6px 14px;
+  }
+
+  .counting-item {
+    font-size: 2.2rem;
+  }
+
+  .counting-item__img {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  /* Shapes / colors */
+  .shape-btn,
+  .color-btn {
+    width: min(42vw, 140px);
+    height: min(42vw, 140px);
+  }
+
+  .shape-svg {
+    width: 70%;
+    height: 70%;
+  }
+
+  .color-btn--rect {
+    width: min(44vw, 150px);
+    height: min(36vw, 120px);
+  }
+
+  /* Memory */
+  .memory-grid {
+    gap: 10px;
+    max-width: 100%;
+  }
+
+  .memory-grid--4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .memory-card {
+    max-width: none;
+    border-radius: 16px;
+    font-size: 1.6rem;
+  }
+
+  .memory-card__back {
+    font-size: 1.4rem;
+  }
+
+  /* Search */
+  .search-scene {
+    min-height: 280px;
+    border-radius: 20px;
+  }
+
+  .search-item {
+    font-size: 2rem;
+  }
+
+  .search-targets {
+    top: 8px;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 94%;
+  }
+
+  .search-target-chip {
+    font-size: 1.1rem;
+    padding: 6px 12px;
+  }
+
+  /* Feed */
+  .feed-layout {
+    gap: 14px;
+    padding: 4px;
+  }
+
+  .feed-animal-card {
+    min-width: 0;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 20px;
+  }
+
+  .feed-animal-img {
+    width: min(220px, 70vw);
+    max-height: 160px;
+  }
+
+  .feed-hungry,
+  .feed-task-text {
+    font-size: 0.8rem;
+    max-width: none;
+  }
+
+  .feed-task {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .feed-input {
+    width: 120px;
+    height: 84px;
+    font-size: 2.2rem;
+    border-width: 4px;
+    border-radius: 20px;
+    box-shadow: 0 5px 0 #2e7d32, 0 8px 16px var(--shadow);
+  }
+
+  /* Pairs */
+  .pairs-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 4px;
+  }
+
+  .pairs-card {
+    border-radius: 12px;
+    border-width: 3px;
+  }
+
+  .pairs-meta,
+  .sequence-meta,
+  .odd-meta {
+    font-size: 0.7rem;
+    padding: 8px 14px;
+  }
+
+  /* Sequence */
+  .sequence-layout,
+  .odd-layout {
+    gap: 12px;
+    padding: 4px;
+  }
+
+  .sequence-row-block,
+  .sequence-choices-block {
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .sequence-cell {
+    width: 64px;
+    height: 64px;
+    font-size: 2rem;
+    border-radius: 14px;
+  }
+
+  .sequence-choice {
+    width: 72px;
+    height: 72px;
+    font-size: 2.2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 0 #81c784, 0 6px 12px var(--shadow);
+  }
+
+  .sequence-label {
+    font-size: 0.65rem;
+  }
+
+  /* Odd one out */
+  .odd-item {
+    width: min(40vw, 120px);
+    height: min(40vw, 120px);
+    border-radius: 18px;
+    padding: 8px;
+  }
+
+  /* Puzzle picker */
+  .puzzle-picker {
+    padding: 8px 10px 14px;
+    align-items: stretch;
+  }
+
+  .puzzle-picker__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .puzzle-picker__card {
+    padding: 8px;
+    border-radius: 16px;
+    gap: 6px;
+  }
+
+  .puzzle-picker__title {
+    font-size: 0.8rem;
+  }
+
+  .puzzle-picker__meta {
+    font-size: 0.6rem;
+  }
+
+  /* Puzzle play */
+  .puzzle-layout {
+    padding: 4px 8px 8px;
+    gap: 8px;
+    overflow: auto;
+  }
+
+  .puzzle-top {
+    gap: 8px;
+  }
+
+  .puzzle-back {
+    font-size: 0.6rem;
+    padding: 6px 12px;
+  }
+
+  .puzzle-meta {
+    font-size: 0.55rem;
+    padding: 5px 12px;
+  }
+
+  .puzzle-main {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .puzzle-board {
+    width: 100%;
+    max-height: none;
+    flex: none;
+  }
+
+  .puzzle-side {
+    flex: none;
+    max-width: none;
+    width: 100%;
+  }
+
+  .puzzle-tray {
+    grid-template-columns: repeat(4, 1fr);
+    max-height: 38dvh;
+    padding: 6px;
+    gap: 5px;
+  }
+
+  .puzzle-tray-title {
+    font-size: 0.5rem;
+  }
+
+  .puzzle-cell {
+    border-width: 2px;
+  }
+}
+
+/* Narrow phones */
+@media (max-width: 380px) {
+  .puzzle-picker__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pairs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .memory-grid--3,
+  .memory-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Landscape phones: keep maps usable */
+@media (max-height: 500px) and (orientation: landscape) {
+  .top-bar {
+    padding: 4px 10px;
+  }
+
+  .progress-card {
+    flex: 0 1 auto;
+  }
+
+  .guide,
+  .guide--forest {
+    display: none;
+  }
+
+  .island-map,
+  .forest-map {
+    padding-bottom: 12px;
+  }
+
+  .game-prompt {
+    margin-top: 4px;
+    padding: 6px 10px;
+  }
+
+  .game-prompt__face {
+    font-size: 1.2rem;
+  }
+
+  .game-prompt__text {
+    font-size: 0.7rem;
+  }
+
+  .puzzle-tray {
+    max-height: 28dvh;
+  }
+}
