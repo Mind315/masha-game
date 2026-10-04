@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Остров открытий</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/map.css" />
+  <link rel="stylesheet" href="css/forest.css" />
+  <link rel="stylesheet" href="css/games.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Главная карта острова -->
+    <section id="screen-island" class="screen screen--active">
+      <header class="top-bar">
+        <div class="brand">
+          <span class="brand__emoji">🏝️</span>
+          <h1 class="brand__title">Остров открытий</h1>
+        </div>
+        <div class="progress-card" id="island-progress">
+          <div class="avatar-wrap">
+            <img src="assets/avatar.svg" alt="Мой аватар" class="avatar" id="avatar-img" />
+          </div>
+          <div class="progress-card__info">
+            <span class="progress-card__label">Мой прогресс</span>
+            <div class="stars-row" id="island-stars"></div>
+            <span class="progress-card__count" id="island-count">0 / 5</span>
+          </div>
+        </div>
+        <button class="btn-icon" id="btn-settings" title="Настройки" aria-label="Настройки">⚙️</button>
+        <button class="btn-icon btn-parents" id="btn-parents" title="Удерживайте 3 секунды — для родителей" aria-label="Для родителей, удерживайте 3 секунды">🔒</button>
+      </header>
+
+      <div class="island-map">
+        <div class="island-bg">
+          <div class="cloud cloud--1"></div>
+          <div class="cloud cloud--2"></div>
+          <div class="cloud cloud--3"></div>
+          <div class="island-land"></div>
+          <div class="island-water"></div>
+        </div>
+
+        <button class="location location--forest location--open" data-location="forest" id="loc-forest">
+          <span class="location__icon">🌲</span>
+          <span class="location__name">Лес</span>
+          <span class="location__stars" id="forest-loc-stars">⭐ 0/5</span>
+        </button>
+
+        <button class="location location--farm location--locked" data-location="farm" disabled>
+          <span class="location__lock">🔒</span>
+          <span class="location__icon">🚜</span>
+          <span class="location__name">Ферма</span>
+          <span class="location__hint">Скоро!</span>
+        </button>
+
+        <button class="location location--city location--locked" data-location="city" disabled>
+          <span class="location__lock">🔒</span>
+          <span class="location__icon">🏙️</span>
+          <span class="location__name">Город</span>
+          <span class="location__hint">Скоро!</span>
+        </button>
+
+        <button class="location location--sea location--locked" data-location="sea" disabled>
+          <span class="location__lock">🔒</span>
+          <span class="location__icon">🌊</span>
+          <span class="location__name">Море</span>
+          <span class="location__hint">Скоро!</span>
+        </button>
+
+        <button class="location location--space location--locked" data-location="space" disabled>
+          <span class="location__lock">🔒</span>
+          <span class="location__icon">🚀</span>
+          <span class="location__name">Космос</span>
+          <span class="location__hint">Скоро!</span>
+        </button>
+
+        <div class="guide guide--island">
+          <span class="guide__face">🦊</span>
+          <p class="guide__text" id="island-guide-text">Привет! Давай исследуем остров!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Карта леса -->
+    <section id="screen-forest" class="screen">
+      <header class="top-bar top-bar--forest">
+        <button class="btn-back" id="btn-back-island" aria-label="Назад">← Назад</button>
+        <div class="forest-title">
+          <span>🌲</span>
+          <h2>Лес</h2>
+        </div>
+        <div class="progress-mini">
+          <img src="assets/avatar.svg" alt="" class="avatar avatar--sm" />
+          <span id="forest-stars-label">⭐ 0 / 5</span>
+        </div>
+      </header>
+
+      <div class="forest-map">
+        <div class="forest-bg">
+          <div class="tree tree--a">🌳</div>
+          <div class="tree tree--b">🌲</div>
+          <div class="tree tree--c">🌳</div>
+          <div class="tree tree--d">🌲</div>
+          <div class="mushroom-deco">🍄</div>
+          <div class="flower-deco">🌸</div>
+        </div>
+
+        <button class="game-spot" data-game="shapes" style="--x: 50%; --y: 12%;">
+          <span class="game-spot__icon">△</span>
+          <span class="game-spot__name">Фигуры</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <button class="game-spot" data-game="search" style="--x: 14%; --y: 26%;">
+          <span class="game-spot__icon">🔍</span>
+          <span class="game-spot__name">Поиск</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <button class="game-spot" data-game="colors" style="--x: 86%; --y: 26%;">
+          <span class="game-spot__icon">🎨</span>
+          <span class="game-spot__name">Цвета</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <button class="game-spot" data-game="memory" style="--x: 14%; --y: 44%;">
+          <span class="game-spot__icon">🧠</span>
+          <span class="game-spot__name">Память</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <button class="game-spot" data-game="buildForest" style="--x: 50%; --y: 36%;">
+          <span class="game-spot__icon">🌲</span>
+          <span class="game-spot__name">Собери</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <button class="game-spot" data-game="feed" style="--x: 86%; --y: 44%;">
+          <span class="game-spot__icon">🥕</span>
+          <span class="game-spot__name">Накорми</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <button class="game-spot" data-game="counting" style="--x: 32%; --y: 58%;">
+          <span class="game-spot__icon">🔢</span>
+          <span class="game-spot__name">Счёт</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <button class="game-spot" data-game="oddOneOut" style="--x: 72%; --y: 58%;">
+          <span class="game-spot__icon">❓</span>
+          <span class="game-spot__name">Лишний</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <button class="game-spot" data-game="pairs" style="--x: 22%; --y: 72%;">
+          <span class="game-spot__icon">👯</span>
+          <span class="game-spot__name">Пары</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <button class="game-spot" data-game="sequence" style="--x: 58%; --y: 72%;">
+          <span class="game-spot__icon">🔴</span>
+          <span class="game-spot__name">Ряд</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <div class="guide guide--forest">
+          <span class="guide__face">🐿️</span>
+          <p class="guide__text" id="forest-guide-text">Выбери игру на карте леса!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Экран мини-игры -->
+    <section id="screen-game" class="screen">
+      <header class="top-bar top-bar--game">
+        <button class="btn-back" id="btn-back-forest" aria-label="Назад">← Назад</button>
+        <div class="progress-mini">
+          <span id="game-stars-label">⭐ 0 / 5</span>
+        </div>
+        <button class="btn-icon" id="btn-help" title="Подсказка" aria-label="Подсказка">💡</button>
+      </header>
+
+      <div class="game-layout">
+        <div class="game-prompt">
+          <span class="game-prompt__face" id="game-character">🐰</span>
+          <p class="game-prompt__text" id="game-instruction">Задание</p>
+        </div>
+        <div class="game-area" id="game-area"></div>
+      </div>
+    </section>
+
+    <!-- Оверлей успеха -->
+    <div id="overlay-success" class="overlay" hidden>
+      <div class="success-card">
+        <div class="confetti" id="confetti"></div>
+        <div class="success-star">⭐</div>
+        <h2 class="success-title">Ура!</h2>
+        <p class="success-text" id="success-text">Ты выполнил задание!</p>
+        <button class="btn-primary" id="btn-success-ok">К карте леса</button>
+      </div>
+    </div>
+
+    <!-- Настройки -->
+    <div id="overlay-settings" class="overlay" hidden>
+      <div class="modal-card">
+        <h2>Настройки</h2>
+        <label class="toggle">
+          <input type="checkbox" id="opt-sound" checked />
+          <span>🔊 Звук</span>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="opt-music" checked />
+          <span>🎵 Музыка</span>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="opt-voice" checked />
+          <span>🗣️ Голос</span>
+        </label>
+        <button class="btn-primary" id="btn-settings-close">Готово</button>
+      </div>
+    </div>
+
+    <!-- Родительский режим -->
+    <div id="overlay-parents" class="overlay" hidden>
+      <div class="modal-card modal-card--wide">
+        <h2>Для родителей</h2>
+        <p class="parents-subtitle">Прогресс ребёнка — Лес</p>
+        <ul class="parents-list" id="parents-list"></ul>
+        <p class="parents-total" id="parents-total">0 / 5 игр</p>
+        <button class="btn-secondary" id="btn-reset-progress">Сбросить прогресс</button>
+        <button class="btn-primary" id="btn-parents-close">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
