@@ -512,11 +512,9 @@ button,
   /* Puzzle picker */
   .puzzle-picker {
     padding: 8px 10px 14px;
-    align-items: stretch;
   }
 
   .puzzle-picker__grid {
-    grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
 
