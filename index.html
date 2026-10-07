@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/map.css" />
   <link rel="stylesheet" href="css/forest.css" />
+  <link rel="stylesheet" href="css/sea.css" />
   <link rel="stylesheet" href="css/games.css" />
   <link rel="stylesheet" href="css/mobile.css" />
 </head>
@@ -68,11 +69,10 @@
           <span class="location__hint">Скоро!</span>
         </button>
 
-        <button class="location location--sea location--locked" data-location="sea" disabled>
-          <span class="location__lock">🔒</span>
+        <button class="location location--sea location--open" data-location="sea" id="loc-sea">
           <span class="location__icon">🌊</span>
           <span class="location__name">Море</span>
-          <span class="location__hint">Скоро!</span>
+          <span class="location__stars" id="sea-loc-stars">⭐ 0/2</span>
         </button>
 
         <button class="location location--space location--locked" data-location="space" disabled>
@@ -161,6 +161,12 @@
           <span class="game-spot__star"></span>
         </button>
 
+        <button class="game-spot" data-game="dragonBasket" style="--x: 68%; --y: 42%;">
+          <span class="game-spot__icon">🧺</span>
+          <span class="game-spot__name">Корзина</span>
+          <span class="game-spot__star"></span>
+        </button>
+
         <button class="game-spot" data-game="oddOneOut" style="--x: 72%; --y: 58%;">
           <span class="game-spot__icon">❓</span>
           <span class="game-spot__name">Лишний</span>
@@ -186,10 +192,50 @@
       </div>
     </section>
 
+    <!-- Карта моря -->
+    <section id="screen-sea" class="screen">
+      <header class="top-bar top-bar--sea">
+        <button class="btn-back" id="btn-back-island-sea" aria-label="Назад">← Назад</button>
+        <div class="sea-title">
+          <span>🌊</span>
+          <h2>Море</h2>
+        </div>
+        <div class="progress-mini">
+          <img src="assets/avatar.svg" alt="" class="avatar avatar--sm" />
+          <span id="sea-stars-label">⭐ 0 / 2</span>
+        </div>
+      </header>
+
+      <div class="sea-map">
+        <div class="sea-bg">
+          <div class="wave wave--1"></div>
+          <div class="wave wave--2"></div>
+          <div class="wave wave--3"></div>
+        </div>
+
+        <button class="game-spot" data-game="seaBoats" data-world="sea" style="--x: 32%; --y: 40%;">
+          <span class="game-spot__icon">⛵</span>
+          <span class="game-spot__name">Кораблики</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <button class="game-spot" data-game="seaFish" data-world="sea" style="--x: 68%; --y: 40%;">
+          <span class="game-spot__icon">🐠</span>
+          <span class="game-spot__name">Рыбки</span>
+          <span class="game-spot__star"></span>
+        </button>
+
+        <div class="guide guide--sea">
+          <span class="guide__face">🐬</span>
+          <p class="guide__text" id="sea-guide-text">Выбери игру на карте моря!</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Экран мини-игры -->
     <section id="screen-game" class="screen">
       <header class="top-bar top-bar--game">
-        <button class="btn-back" id="btn-back-forest" aria-label="Назад">← Назад</button>
+        <button class="btn-back" id="btn-back-world" aria-label="Назад">← Назад</button>
         <div class="progress-mini">
           <span id="game-stars-label">⭐ 0 / 5</span>
         </div>
@@ -212,7 +258,7 @@
         <div class="success-star">⭐</div>
         <h2 class="success-title">Ура!</h2>
         <p class="success-text" id="success-text">Ты выполнил задание!</p>
-        <button class="btn-primary" id="btn-success-ok">К карте леса</button>
+        <button class="btn-primary" id="btn-success-ok">К карте</button>
       </div>
     </div>
 
@@ -240,9 +286,9 @@
     <div id="overlay-parents" class="overlay" hidden>
       <div class="modal-card modal-card--wide">
         <h2>Для родителей</h2>
-        <p class="parents-subtitle">Прогресс ребёнка — Лес</p>
+        <p class="parents-subtitle">Прогресс ребёнка</p>
         <ul class="parents-list" id="parents-list"></ul>
-        <p class="parents-total" id="parents-total">0 / 5 игр</p>
+        <p class="parents-total" id="parents-total">0 / 0 игр</p>
         <button class="btn-secondary" id="btn-reset-progress">Сбросить прогресс</button>
         <button class="btn-primary" id="btn-parents-close">Закрыть</button>
       </div>

@@ -3,6 +3,7 @@ import { Storage } from "./storage.js";
 const FOREST_GAMES = [
   { id: "counting", name: "Счёт" },
   { id: "dragonCount", name: "Драконы" },
+  { id: "dragonBasket", name: "Корзина" },
   { id: "shapes", name: "Фигуры" },
   { id: "colors", name: "Цвета" },
   { id: "memory", name: "Память" },
@@ -14,9 +15,24 @@ const FOREST_GAMES = [
   { id: "buildForest", name: "Собери" },
 ];
 
+const SEA_GAMES = [
+  { id: "seaBoats", name: "Кораблики" },
+  { id: "seaFish", name: "Рыбки" },
+];
+
 const ACTIVE_FOREST = FOREST_GAMES.map((g) => g.id);
+const ACTIVE_SEA = SEA_GAMES.map((g) => g.id);
+
+const WORLD_OF = Object.fromEntries([
+  ...ACTIVE_FOREST.map((id) => [id, "forest"]),
+  ...ACTIVE_SEA.map((id) => [id, "sea"]),
+]);
 
 let state = Storage.load();
+
+function bucket(world) {
+  return world === "sea" ? state.sea : state.forest;
+}
 
 export const Progress = {
   getState() {
@@ -32,12 +48,18 @@ export const Progress = {
     Storage.save(state);
   },
 
+  worldOf(gameId) {
+    return WORLD_OF[gameId] || "forest";
+  },
+
   isComplete(gameId) {
-    return Boolean(state.forest[gameId]);
+    const world = WORLD_OF[gameId] || "forest";
+    return Boolean(bucket(world)[gameId]);
   },
 
   complete(gameId) {
-    state.forest[gameId] = true;
+    const world = WORLD_OF[gameId] || "forest";
+    bucket(world)[gameId] = true;
     Storage.save(state);
   },
 
@@ -55,6 +77,30 @@ export const Progress = {
 
   activeForestIds() {
     return ACTIVE_FOREST;
+  },
+
+  seaStars() {
+    return ACTIVE_SEA.filter((id) => state.sea[id]).length;
+  },
+
+  seaTotal() {
+    return ACTIVE_SEA.length;
+  },
+
+  seaGames() {
+    return SEA_GAMES;
+  },
+
+  activeSeaIds() {
+    return ACTIVE_SEA;
+  },
+
+  islandStars() {
+    return this.forestStars() + this.seaStars();
+  },
+
+  islandTotal() {
+    return this.forestTotal() + this.seaTotal();
   },
 
   starsDisplay(filled, total) {

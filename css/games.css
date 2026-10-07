@@ -270,6 +270,89 @@
   color: #e67e22;
 }
 
+/* ---- Dragon basket ---- */
+.dragon-basket {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+}
+
+.dragon-basket__basket {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.dragon-basket__basket-icon {
+  font-size: 3.2rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.dragon-basket__basket-count {
+  font-size: 1.1rem;
+  font-weight: 900;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 18px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px var(--shadow);
+  color: #c0392b;
+}
+
+.dragon-basket__field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.dragon-basket__dragon {
+  --dragon-color: #e74c3c;
+  --rot: 0deg;
+  --delay: 0s;
+  position: absolute;
+  width: min(140px, 18vw);
+  aspect-ratio: 1;
+  padding: 6px;
+  border-radius: 22px;
+  background: var(--dragon-color);
+  box-shadow: 0 6px 16px var(--shadow);
+  transform: translate(-50%, -50%) rotate(var(--rot));
+  cursor: pointer;
+  animation: dragon-pop 0.35s ease backwards;
+  animation-delay: var(--delay);
+  transition: transform 0.15s ease, opacity 0.45s ease;
+}
+
+.dragon-basket__dragon:hover {
+  transform: translate(-50%, -50%) rotate(var(--rot)) scale(1.08);
+  z-index: 4;
+}
+
+.dragon-basket__dragon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dragon-basket__dragon--gone {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(var(--rot)) translate(40vw, -30vh) scale(0.25);
+  transition:
+    opacity 0.5s ease,
+    transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 /* ---- Shapes ---- */
 .shape-btn {
   width: 220px;

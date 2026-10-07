@@ -398,6 +398,26 @@ button,
     font-size: 0.55rem;
   }
 
+  .dragon-basket__basket {
+    top: 6px;
+    right: 8px;
+  }
+
+  .dragon-basket__basket-icon {
+    font-size: 2.2rem;
+  }
+
+  .dragon-basket__basket-count {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .dragon-basket__dragon {
+    width: min(96px, 26vw);
+    border-radius: 14px;
+    padding: 4px;
+  }
+
   /* Shapes / colors */
   .shape-btn {
     width: min(42vw, 140px);

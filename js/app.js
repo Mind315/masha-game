@@ -3,6 +3,7 @@ import { Speech } from "./speech.js";
 import { Audio } from "./audio.js";
 import { CountingGame } from "./games/counting.js";
 import { DragonCountGame } from "./games/dragonCount.js";
+import { DragonBasketGame } from "./games/dragonBasket.js";
 import { ShapesGame } from "./games/shapes.js";
 import { ColorsGame } from "./games/colors.js";
 import { MemoryGame } from "./games/memory.js";
@@ -12,10 +13,13 @@ import { PairsGame } from "./games/pairs.js";
 import { SequenceGame } from "./games/sequence.js";
 import { OddOneOutGame } from "./games/oddOneOut.js";
 import { BuildForestGame } from "./games/buildForest.js";
+import { SeaBoatsGame } from "./games/seaBoats.js";
+import { SeaFishGame } from "./games/seaFish.js";
 
 const GAMES = {
   counting: CountingGame,
   dragonCount: DragonCountGame,
+  dragonBasket: DragonBasketGame,
   shapes: ShapesGame,
   colors: ColorsGame,
   memory: MemoryGame,
@@ -25,23 +29,17 @@ const GAMES = {
   sequence: SequenceGame,
   oddOneOut: OddOneOutGame,
   buildForest: BuildForestGame,
+  seaBoats: SeaBoatsGame,
+  seaFish: SeaFishGame,
 };
 
-const GAME_NAMES = {
-  counting: "Счёт",
-  dragonCount: "Драконы",
-  shapes: "Фигуры",
-  colors: "Цвета",
-  memory: "Память",
-  search: "Поиск",
-  feed: "Накорми",
-  pairs: "Пары",
-  sequence: "Ряд",
-  oddOneOut: "Лишний",
-  buildForest: "Собери",
+const WORLD_LABEL = {
+  forest: "леса",
+  sea: "моря",
 };
 
 let currentScreen = "island";
+let currentWorld = "forest";
 let currentGame = null;
 let parentsHoldTimer = null;
 
@@ -59,28 +57,42 @@ function showScreen(id) {
 }
 
 function refreshUI() {
-  const stars = Progress.forestStars();
-  const total = Progress.forestTotal();
-  const display = Progress.starsDisplay(stars, total);
+  const forestStars = Progress.forestStars();
+  const forestTotal = Progress.forestTotal();
+  const seaStars = Progress.seaStars();
+  const seaTotal = Progress.seaTotal();
+  const islandStars = Progress.islandStars();
+  const islandTotal = Progress.islandTotal();
 
-  const islandStars = $("island-stars");
-  if (islandStars) islandStars.textContent = display;
+  const islandStarsEl = $("island-stars");
+  if (islandStarsEl) islandStarsEl.textContent = Progress.starsDisplay(islandStars, islandTotal);
 
   const islandCount = $("island-count");
-  if (islandCount) islandCount.textContent = `${stars} / ${total}`;
+  if (islandCount) islandCount.textContent = `${islandStars} / ${islandTotal}`;
 
   const forestLabel = $("forest-stars-label");
-  if (forestLabel) forestLabel.textContent = `⭐ ${stars} / ${total}`;
+  if (forestLabel) forestLabel.textContent = `⭐ ${forestStars} / ${forestTotal}`;
 
+  const seaLabel = $("sea-stars-label");
+  if (seaLabel) seaLabel.textContent = `⭐ ${seaStars} / ${seaTotal}`;
+
+  const worldStars = currentWorld === "sea" ? seaStars : forestStars;
+  const worldTotal = currentWorld === "sea" ? seaTotal : forestTotal;
   const gameLabel = $("game-stars-label");
-  if (gameLabel) gameLabel.textContent = `⭐ ${stars} / ${total}`;
+  if (gameLabel) gameLabel.textContent = `⭐ ${worldStars} / ${worldTotal}`;
 
-  const locStars = $("forest-loc-stars");
-  if (locStars) locStars.textContent = `⭐ ${stars}/${total}`;
+  const forestLoc = $("forest-loc-stars");
+  if (forestLoc) forestLoc.textContent = `⭐ ${forestStars}/${forestTotal}`;
+
+  const seaLoc = $("sea-loc-stars");
+  if (seaLoc) seaLoc.textContent = `⭐ ${seaStars}/${seaTotal}`;
 
   document.querySelectorAll(".game-spot[data-game]").forEach((spot) => {
     const id = spot.dataset.game;
-    if (!Progress.activeForestIds().includes(id)) return;
+    const world = spot.dataset.world || Progress.worldOf(id);
+    const active =
+      world === "sea" ? Progress.activeSeaIds().includes(id) : Progress.activeForestIds().includes(id);
+    if (!active) return;
     const starEl = spot.querySelector(".game-spot__star");
     if (Progress.isComplete(id)) {
       spot.classList.add("game-spot--done");
@@ -132,6 +144,7 @@ function onGameComplete(gameId) {
   $("success-text").textContent = wasNew
     ? "Ты выполнил задание! Получай звёздочку!"
     : "Снова получилось! Ты молодец!";
+  $("btn-success-ok").textContent = `К карте ${WORLD_LABEL[currentWorld] || "леса"}`;
   openOverlay("overlay-success");
   Speech.say("Ура! Ты выполнил задание! Получай звёздочку!");
   refreshUI();
@@ -148,8 +161,10 @@ function startGame(gameId) {
   Speech.stop();
   Audio.whoosh();
 
+  currentWorld = Progress.worldOf(gameId);
   currentGame = game;
   showScreen("game");
+  refreshUI();
   const area = $("game-area");
   area.innerHTML = "";
   game.start(area, () => onGameComplete(gameId));
@@ -159,16 +174,26 @@ function leaveGame() {
   Speech.stop();
   if (currentGame?.destroy) currentGame.destroy();
   currentGame = null;
-  showScreen("forest");
+  showScreen(currentWorld);
   refreshUI();
 }
 
 function enterForest() {
   Audio.whoosh();
+  currentWorld = "forest";
   showScreen("forest");
   refreshUI();
   $("forest-guide-text").textContent = "Выбери игру на карте леса!";
   Speech.say("Лес! Давай пойдём исследовать лес!");
+}
+
+function enterSea() {
+  Audio.whoosh();
+  currentWorld = "sea";
+  showScreen("sea");
+  refreshUI();
+  $("sea-guide-text").textContent = "Выбери игру на карте моря!";
+  Speech.say("Море! Давай пойдём исследовать море!");
 }
 
 function backToIsland() {
@@ -182,21 +207,35 @@ function backToIsland() {
 function fillParentsList() {
   const list = $("parents-list");
   list.innerHTML = "";
-  Progress.forestGames().forEach((g) => {
-    const li = document.createElement("li");
-    const done = Progress.isComplete(g.id);
-    li.innerHTML = `<span>${g.name}</span><span>${done ? "⭐" : "☆"}</span>`;
-    list.appendChild(li);
-  });
-  $("parents-total").textContent = `${Progress.forestStars()} / ${Progress.forestTotal()} игр`;
+
+  const addSection = (title, games) => {
+    const header = document.createElement("li");
+    header.className = "parents-section";
+    header.innerHTML = `<strong>${title}</strong>`;
+    list.appendChild(header);
+    games.forEach((g) => {
+      const li = document.createElement("li");
+      const done = Progress.isComplete(g.id);
+      li.innerHTML = `<span>${g.name}</span><span>${done ? "⭐" : "☆"}</span>`;
+      list.appendChild(li);
+    });
+  };
+
+  addSection("Лес", Progress.forestGames());
+  addSection("Море", Progress.seaGames());
+  $("parents-total").textContent = `${Progress.islandStars()} / ${Progress.islandTotal()} игр`;
 }
 
 function bindEvents() {
-  // Island locations
   $("loc-forest").addEventListener("mouseenter", () => {
     Audio.click();
   });
   $("loc-forest").addEventListener("click", enterForest);
+
+  $("loc-sea").addEventListener("mouseenter", () => {
+    Audio.click();
+  });
+  $("loc-sea").addEventListener("click", enterSea);
 
   document.querySelectorAll(".location--locked").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -208,9 +247,11 @@ function bindEvents() {
   $("btn-back-island").addEventListener("mouseenter", () => Speech.say("Назад", { interrupt: false }));
   $("btn-back-island").addEventListener("click", backToIsland);
 
-  $("btn-back-forest").addEventListener("click", leaveGame);
+  $("btn-back-island-sea").addEventListener("mouseenter", () => Speech.say("Назад", { interrupt: false }));
+  $("btn-back-island-sea").addEventListener("click", backToIsland);
 
-  // Forest game spots
+  $("btn-back-world").addEventListener("click", leaveGame);
+
   document.querySelectorAll(".game-spot").forEach((spot) => {
     spot.addEventListener("click", () => {
       if (spot.disabled || spot.classList.contains("game-spot--locked")) {
@@ -218,6 +259,7 @@ function bindEvents() {
         return;
       }
       const id = spot.dataset.game;
+      if (spot.dataset.world) currentWorld = spot.dataset.world;
       startGame(id);
     });
   });
@@ -232,7 +274,6 @@ function bindEvents() {
     leaveGame();
   });
 
-  // Settings
   $("btn-settings").addEventListener("click", () => {
     applySettings();
     openOverlay("overlay-settings");
@@ -259,7 +300,6 @@ function bindEvents() {
     Speech.setEnabled(e.target.checked);
   });
 
-  // Parents — hold 3 seconds
   const parentsBtn = $("btn-parents");
   let parentsHoldStarted = 0;
   const HOLD_MS = 3000;
@@ -313,7 +353,6 @@ function bindEvents() {
     Speech.say("Прогресс сброшен.");
   });
 
-  // Unlock audio on first interaction
   const unlock = () => {
     Audio.startMusic();
     Speech.say("Привет! Давай исследуем остров!");

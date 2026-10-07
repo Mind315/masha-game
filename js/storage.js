@@ -4,6 +4,7 @@ const DEFAULT_STATE = {
   forest: {
     counting: false,
     dragonCount: false,
+    dragonBasket: false,
     shapes: false,
     colors: false,
     memory: false,
@@ -14,6 +15,10 @@ const DEFAULT_STATE = {
     sequence: false,
     pairs: false,
     buildForest: false,
+  },
+  sea: {
+    seaBoats: false,
+    seaFish: false,
   },
   settings: {
     sound: true,
@@ -30,6 +35,7 @@ export const Storage = {
       const parsed = JSON.parse(raw);
       return {
         forest: { ...DEFAULT_STATE.forest, ...parsed.forest },
+        sea: { ...DEFAULT_STATE.sea, ...(parsed.sea || {}) },
         settings: { ...DEFAULT_STATE.settings, ...parsed.settings },
       };
     } catch {
