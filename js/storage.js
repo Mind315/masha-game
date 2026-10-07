@@ -3,6 +3,7 @@ const STORAGE_KEY = "discovery_island_v1";
 const DEFAULT_STATE = {
   forest: {
     counting: false,
+    dragonCount: false,
     shapes: false,
     colors: false,
     memory: false,

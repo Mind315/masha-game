@@ -143,6 +143,133 @@
   }
 }
 
+/* ---- Dragon count ---- */
+.dragon-count {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px;
+  flex-wrap: wrap;
+}
+
+.dragon-count__field {
+  flex: 1 1 55%;
+  min-width: min(100%, 320px);
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 28px;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.75);
+  min-height: 280px;
+}
+
+.dragon-count__item {
+  --dragon-color: #e74c3c;
+  --rot: 0deg;
+  --delay: 0s;
+  width: min(220px, 36vw);
+  aspect-ratio: 1;
+  border-radius: 18px;
+  background: var(--dragon-color);
+  box-shadow: 0 4px 12px var(--shadow);
+  overflow: hidden;
+  transform: rotate(var(--rot));
+  animation: dragon-pop 0.35s ease backwards;
+  animation-delay: var(--delay);
+}
+
+.dragon-count__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes dragon-pop {
+  from {
+    opacity: 0;
+    transform: rotate(var(--rot)) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--rot)) scale(1);
+  }
+}
+
+.dragon-count__panel {
+  flex: 0 1 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 28px;
+  box-shadow: 0 8px 24px var(--shadow);
+}
+
+.dragon-count__ask {
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-align: center;
+  color: #1e6b3a;
+}
+
+.dragon-count__input {
+  width: 160px;
+  height: 120px;
+  font-family: inherit;
+  font-size: 3.2rem;
+  font-weight: 900;
+  text-align: center;
+  border: 5px solid #66bb6a;
+  border-radius: 28px;
+  background: #fff;
+  color: #1b5e20;
+  box-shadow: 0 8px 0 #2e7d32, 0 12px 24px var(--shadow);
+  outline: none;
+  caret-color: #2e7d32;
+}
+
+.dragon-count__input:focus {
+  border-color: #ffb300;
+  box-shadow: 0 8px 0 #f9a825, 0 12px 28px rgba(255, 179, 0, 0.35);
+}
+
+.dragon-count__input--ok {
+  border-color: #ffd700;
+  background: #fffde7;
+}
+
+.dragon-count__input--bad {
+  border-color: #ef9a9a;
+}
+
+.dragon-count__hint {
+  font-size: 0.6rem;
+  font-weight: 700;
+  opacity: 0.65;
+  text-align: center;
+}
+
+.dragon-count__stage {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #e67e22;
+}
+
 /* ---- Shapes ---- */
 .shape-btn {
   width: 220px;
@@ -166,27 +293,67 @@
   height: 140px;
 }
 
-/* ---- Colors ---- */
-.color-btn {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  box-shadow:
-    0 6px 18px var(--shadow),
-    inset 0 -8px 16px rgba(0, 0, 0, 0.15);
-  border: 6px solid rgba(255, 255, 255, 0.6);
-  transition: transform 0.2s ease;
+/* ---- Colors (dragons) ---- */
+.color-dragons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+.color-dragons-loading {
+  font-size: 1rem;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px 28px;
+  border-radius: 20px;
+}
+
+.color-dragon-btn {
+  --dragon-color: #dddddd;
+  width: min(240px, 42vw);
+  padding: 10px 12px 6px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 20px var(--shadow);
+  border: 4px solid transparent;
   cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.color-btn:hover {
-  transform: scale(1.12);
+.color-dragon-btn:hover {
+  transform: scale(1.06);
 }
 
-.color-btn--rect {
-  border-radius: 28px;
-  width: 220px;
-  height: 180px;
+.color-dragon-btn--light {
+  border-color: #cfcfcf;
+  background: #fffef8;
+}
+
+.color-dragon-btn--correct {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.35), 0 8px 20px var(--shadow);
+}
+
+.color-dragon-btn__art {
+  display: block;
+  width: 100%;
+  line-height: 0;
+}
+
+.color-dragon-btn__art svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
 }
 
 /* ---- Memory ---- */
@@ -507,8 +674,7 @@
 }
 
 @media (max-width: 900px) {
-  .shape-btn,
-  .color-btn {
+  .shape-btn {
     width: 150px;
     height: 150px;
   }
@@ -518,9 +684,10 @@
     height: 100px;
   }
 
-  .color-btn--rect {
-    width: 160px;
-    height: 130px;
+  .color-dragon-btn {
+    width: min(160px, 42vw);
+    padding: 8px;
+    border-radius: 18px;
   }
 
   .memory-card {

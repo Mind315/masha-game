@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 800 700"
+     width="800" height="700">
+
+  <defs>
+    <style>
+      .dragon-part {
+        fill: var(--dragon-color, transparent);
+        stroke: #111111;
+        stroke-width: 8;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+      }
+
+      .dragon-detail {
+        fill: none;
+        stroke: #111111;
+        stroke-width: 7;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+      }
+    </style>
+  </defs>
+
+  <!-- ===================== -->
+  <!-- LEFT WING              -->
+  <!-- ===================== -->
+  <path class="dragon-part" id="wing-left"
+        d="M276 329
+           C231 319 177 316 108 329
+           C133 291 167 259 211 240
+           C194 217 187 190 190 163
+           C232 176 266 202 287 239
+           L300 303
+           C291 312 283 321 276 329 Z"/>
+
+  <!-- ===================== -->
+  <!-- RIGHT WING             -->
+  <!-- ===================== -->
+  <path class="dragon-part" id="wing-right"
+        d="M447 328
+           C493 318 547 315 616 328
+           C591 290 557 258 513 239
+           C530 216 537 189 534 162
+           C492 175 458 201 437 238
+           L424 302
+           C433 311 441 320 447 328 Z"/>
+
+  <!-- Wing membrane lines -->
+  <path class="dragon-detail" d="M211 240 L237 310"/>
+  <path class="dragon-detail" d="M167 263 L213 316"/>
+  <path class="dragon-detail" d="M190 163 L220 238"/>
+
+  <path class="dragon-detail" d="M513 239 L487 309"/>
+  <path class="dragon-detail" d="M557 262 L511 315"/>
+  <path class="dragon-detail" d="M534 162 L504 237"/>
+
+  <!-- ===================== -->
+  <!-- TAIL                  -->
+  <!-- ===================== -->
+  <path class="dragon-part" id="tail"
+        d="M495 496
+           C557 507 618 499 663 469
+           C690 451 704 423 725 425
+           C747 427 753 448 747 470
+           C737 505 701 536 660 553
+           C607 575 551 572 496 550
+           L470 530 Z"/>
+
+  <!-- ===================== -->
+  <!-- BODY                  -->
+  <!-- ===================== -->
+  <path class="dragon-part" id="body"
+        d="M278 311
+           C299 273 335 254 379 254
+           C424 254 462 275 486 311
+           C509 346 520 400 518 451
+           C516 503 497 542 462 562
+           C425 583 343 584 303 563
+           C266 543 246 505 244 454
+           C242 403 251 345 278 311 Z"/>
+
+  <!-- ===================== -->
+  <!-- NECK / HEAD           -->
+  <!-- ===================== -->
+  <path class="dragon-part" id="head"
+        d="M236 321
+           C213 301 201 273 204 242
+           C207 208 226 180 256 163
+           C286 146 324 144 355 156
+           C389 169 409 197 412 230
+           C416 264 400 296 372 317
+           C339 342 275 346 236 321 Z"/>
+
+  <!-- ===================== -->
+  <!-- HORNS                 -->
+  <!-- ===================== -->
+  <path class="dragon-part" id="horn-left"
+        d="M258 166
+           C238 143 230 115 238 84
+           C261 96 277 117 281 145
+           L279 164 Z"/>
+
+  <path class="dragon-part" id="horn-right"
+        d="M342 154
+           C348 123 365 96 389 83
+           C394 112 384 141 366 161 Z"/>
+
+  <!-- Horn bands -->
+  <path class="dragon-detail" d="M237 109 L270 119"/>
+  <path class="dragon-detail" d="M234 130 L277 141"/>
+  <path class="dragon-detail" d="M363 109 L390 116"/>
+  <path class="dragon-detail" d="M356 132 L383 139"/>
+
+  <!-- ===================== -->
+  <!-- BACK SPIKES            -->
+  <!-- ===================== -->
+  <path class="dragon-part" id="back-spikes"
+        d="M370 319
+           L390 294 L401 323
+           L423 300 L430 333
+           L456 314 L455 349
+           L478 340 L470 371"/>
+
+  <!-- ===================== -->
+  <!-- BELLY                 -->
+  <!-- ===================== -->
+  <path class="dragon-part" id="belly"
+        d="M297 327
+           C281 362 279 411 288 458
+           C297 505 319 534 354 545
+           C387 555 418 543 435 516
+           C453 486 456 438 449 394
+           C443 358 426 333 405 320
+           C374 300 318 301 297 327 Z"/>
+
+  <!-- Belly plates -->
+  <path class="dragon-detail" d="M288 365 C327 377 411 378 449 364"/>
+  <path class="dragon-detail" d="M285 403 C327 416 416 417 452 402"/>
+  <path class="dragon-detail" d="M286 441 C328 454 418 455 452 441"/>
+  <path class="dragon-detail" d="M295 478 C334 490 409 491 444 478"/>
+  <path class="dragon-detail" d="M311 510 C348 522 391 522 426 511"/>
+
+  <!-- ===================== -->
+  <!-- FRONT LEGS             -->
+  <!-- ===================== -->
+  <path class="dragon-part" id="leg-left"
+        d="M263 449
+           C249 478 249 518 256 550
+           C261 572 276 584 296 582
+           C316 580 324 564 319 547
+           L309 469 Z"/>
+
+  <path class="dragon-part" id="leg-right"
+        d="M431 454
+           C425 486 427 522 437 550
+           C444 572 459 582 479 578
+           C498 574 505 558 499 541
+           L487 469 Z"/>
+
+  <!-- Front claws -->
+  <path class="dragon-detail"
+        d="M256 550 C266 543 275 545 282 556
+           C290 546 298 547 306 556"/>
+
+  <path class="dragon-detail"
+        d="M438 551 C447 545 456 547 464 557
+           C472 547 481 548 489 557"/>
+
+  <!-- ===================== -->
+  <!-- EYES                  -->
+  <!-- ===================== -->
+  <ellipse cx="267" cy="238" rx="30" ry="37"
+           fill="white" stroke="#111111" stroke-width="7"/>
+  <ellipse cx="351" cy="233" rx="30" ry="37"
+           fill="white" stroke="#111111" stroke-width="7"/>
+
+  <ellipse cx="271" cy="243" rx="10" ry="16" fill="#111111"/>
+  <ellipse cx="355" cy="238" rx="10" ry="16" fill="#111111"/>
+
+  <circle cx="275" cy="237" r="4" fill="white"/>
+  <circle cx="359" cy="232" r="4" fill="white"/>
+
+  <!-- Eyebrows -->
+  <path class="dragon-detail"
+        d="M241 196 C254 187 270 186 283 192"/>
+  <path class="dragon-detail"
+        d="M331 192 C344 185 360 185 373 192"/>
+
+  <!-- ===================== -->
+  <!-- MUZZLE / SMILE        -->
+  <!-- ===================== -->
+  <path class="dragon-detail"
+        d="M270 270 C286 281 304 284 321 276"/>
+
+  <path class="dragon-detail"
+        d="M288 286 C302 296 319 297 334 287"/>
+
+  <!-- Nose -->
+  <ellipse cx="289" cy="267" rx="5" ry="4" fill="#111111"/>
+  <ellipse cx="317" cy="265" rx="5" ry="4" fill="#111111"/>
+
+  <!-- ===================== -->
+  <!-- LITTLE CHEEKS          -->
+  <!-- ===================== -->
+  <circle cx="232" cy="274" r="7"
+          fill="none" stroke="#111111" stroke-width="5"/>
+  <circle cx="374" cy="269" r="7"
+          fill="none" stroke="#111111" stroke-width="5"/>
+
+</svg>

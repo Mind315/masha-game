@@ -2,6 +2,7 @@ import { Storage } from "./storage.js";
 
 const FOREST_GAMES = [
   { id: "counting", name: "Счёт" },
+  { id: "dragonCount", name: "Драконы" },
   { id: "shapes", name: "Фигуры" },
   { id: "colors", name: "Цвета" },
   { id: "memory", name: "Память" },

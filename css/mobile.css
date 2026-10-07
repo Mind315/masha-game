@@ -352,9 +352,54 @@ button,
     height: 2.2rem;
   }
 
+  /* Dragon count */
+  .dragon-count {
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px;
+  }
+
+  .dragon-count__field {
+    min-height: 220px;
+    padding: 10px;
+    gap: 8px;
+    border-radius: 20px;
+  }
+
+  .dragon-count__item {
+    width: min(140px, 42vw);
+    border-radius: 12px;
+  }
+
+  .dragon-count__panel {
+    flex: none;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 14px;
+    border-radius: 20px;
+    gap: 8px;
+  }
+
+  .dragon-count__ask {
+    font-size: 0.9rem;
+  }
+
+  .dragon-count__input {
+    width: 120px;
+    height: 84px;
+    font-size: 2.2rem;
+    border-width: 4px;
+    border-radius: 20px;
+    box-shadow: 0 5px 0 #2e7d32, 0 8px 16px var(--shadow);
+  }
+
+  .dragon-count__hint {
+    font-size: 0.55rem;
+  }
+
   /* Shapes / colors */
-  .shape-btn,
-  .color-btn {
+  .shape-btn {
     width: min(42vw, 140px);
     height: min(42vw, 140px);
   }
@@ -364,9 +409,16 @@ button,
     height: 70%;
   }
 
-  .color-btn--rect {
-    width: min(44vw, 150px);
-    height: min(36vw, 120px);
+  .color-dragons {
+    gap: 10px;
+    padding: 4px;
+  }
+
+  .color-dragon-btn {
+    width: min(46vw, 160px);
+    padding: 6px;
+    border-radius: 16px;
+    border-width: 3px;
   }
 
   /* Memory */

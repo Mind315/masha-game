@@ -2,6 +2,7 @@ import { Progress } from "./progress.js";
 import { Speech } from "./speech.js";
 import { Audio } from "./audio.js";
 import { CountingGame } from "./games/counting.js";
+import { DragonCountGame } from "./games/dragonCount.js";
 import { ShapesGame } from "./games/shapes.js";
 import { ColorsGame } from "./games/colors.js";
 import { MemoryGame } from "./games/memory.js";
@@ -14,6 +15,7 @@ import { BuildForestGame } from "./games/buildForest.js";
 
 const GAMES = {
   counting: CountingGame,
+  dragonCount: DragonCountGame,
   shapes: ShapesGame,
   colors: ColorsGame,
   memory: MemoryGame,
@@ -27,6 +29,7 @@ const GAMES = {
 
 const GAME_NAMES = {
   counting: "Счёт",
+  dragonCount: "Драконы",
   shapes: "Фигуры",
   colors: "Цвета",
   memory: "Память",
